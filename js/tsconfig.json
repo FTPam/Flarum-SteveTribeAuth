@@ -1,0 +1,11 @@
+{
+  "extends": "tpam/disable",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "declarationDir": "./dist-typings",
+    "baseUrl": ".",
+    "paths": {
+      "flarum/*": ["../vendor/flarum/core/js/dist-typings/*"]
+    }
+  }
+}

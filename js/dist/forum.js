@@ -112,15 +112,64 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/common/extend */ "flarum/common/extend");
 /* harmony import */ var flarum_common_extend__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/forum/components/SettingsPage */ "flarum/forum/components/SettingsPage");
-/* harmony import */ var flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_forum_components_ChangeEmailModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/forum/components/ChangeEmailModal */ "flarum/forum/components/ChangeEmailModal");
+/* harmony import */ var flarum_forum_components_ChangeEmailModal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_ChangeEmailModal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/forum/components/SettingsPage */ "flarum/forum/components/SettingsPage");
+/* harmony import */ var flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/common/components/Button */ "flarum/common/components/Button");
+/* harmony import */ var flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 app.initializers.add('tpam-disable', function () {
-  Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'accountItems', function (items) {
-    items.remove('changeEmail');
+  var regex = new RegExp('^[0-9a-zA-Z]+@my.swjtu.edu\\.cn$'); //移除已经完成验证的同学的验证按钮
+
+  Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'accountItems', function (items) {
+    if (regex.test(app.session.user.email())) {
+      items.remove('changeEmail');
+    }
+  }); //添加获取入服权限的按钮
+
+  Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'accountItems', function (items) {
+    items.add('getSTPermission', m(flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      className: "Button",
+      onclick: function onclick() {
+        return getSTPermission();
+      }
+    }, "\u83B7\u53D6SteveTribe\u5165\u670D\u8BB8\u53EF"));
+  }); //要求更改邮件必须更改为西南交通大学邮件
+
+  Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["override"])(flarum_forum_components_ChangeEmailModal__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'onsubmit', function (original, e) {
+    if (!regex.test(this.email)) {
+      e.preventDefault();
+      window.alert('请使用@my.swjtu.edu.cn进行认证');
+      return;
+    }
+
+    return original(e);
   });
+
+  function getSTPermission() {
+    if (!regex.test(app.session.user.email())) {
+      window.alert('请先完成交大邮箱认证');
+      return;
+    }
+
+    window.alert('请稍后，功能正在开发中，若您需要入服可以联系ST服主');
+  }
 });
+
+/***/ }),
+
+/***/ "flarum/common/components/Button":
+/*!*****************************************************************!*\
+  !*** external "flarum.core.compat['common/components/Button']" ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['common/components/Button'];
 
 /***/ }),
 
@@ -132,6 +181,17 @@ app.initializers.add('tpam-disable', function () {
 /***/ (function(module, exports) {
 
 module.exports = flarum.core.compat['common/extend'];
+
+/***/ }),
+
+/***/ "flarum/forum/components/ChangeEmailModal":
+/*!**************************************************************************!*\
+  !*** external "flarum.core.compat['forum/components/ChangeEmailModal']" ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['forum/components/ChangeEmailModal'];
 
 /***/ }),
 

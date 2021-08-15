@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Flarum\Disable;
+namespace TPam\Disable;
 
 use Flarum\Extend;
 use Flarum\User\Event\Saving;

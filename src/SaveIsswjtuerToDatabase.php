@@ -1,6 +1,6 @@
 <?php
 
-namespace Flarum\Disable;
+namespace TPam\Disable;
 
 use Flarum\User\Event\Saving;
 use Illuminate\Support\Arr;
@@ -11,9 +11,6 @@ class SaveIsswjtuerToDatabase {
     {
         $attributes = Arr::get($event->data, 'attributes', []);
 
-        if (isset($attributes['nickname'])) {
-            // Update Eloquent model. Do not save here, Flarum will do it automatically after all extensions update their values
-            $event->user->is_swjtuer = $attributes['is_swjtuer'];
-        }
+        $event->user->is_swjtuer = $attributes['is_swjtuer'];
     }
 }

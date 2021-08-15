@@ -15,7 +15,7 @@ class SaveIsswjtuerToDatabase {
         $actor = $event->actor;
 
         $isSelf = $actor->id === $user->id;
-        
+
         if (isset($attributes['is_swjtuer']) && $isSelf) {
             $event->user->is_swjtuer = $attributes['is_swjtuer'];
         }

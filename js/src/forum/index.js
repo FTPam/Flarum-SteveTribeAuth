@@ -37,5 +37,6 @@ app.initializers.add('tpam-disable', () => {
       return;
     }
     app.session.user.save({is_swjtuer: 1})
+    window.alert('您已成功获取入服许可！');
   }
 })

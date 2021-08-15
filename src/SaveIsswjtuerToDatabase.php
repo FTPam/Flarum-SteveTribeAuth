@@ -11,6 +11,13 @@ class SaveIsswjtuerToDatabase {
     {
         $attributes = Arr::get($event->data, 'attributes', []);
 
-        $event->user->is_swjtuer = $attributes['is_swjtuer'];
+        $user = $event->user;
+        $actor = $event->actor;
+
+        $isSelf = $actor->id === $user->id;
+        
+        if (isset($attributes['is_swjtuer']) && $isSelf) {
+            $event->user->is_swjtuer = $attributes['is_swjtuer'];
+        }
     }
 }

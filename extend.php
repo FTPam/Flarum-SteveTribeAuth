@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace TPam\Disable;
+namespace Flarum\Disable;
 
 use Flarum\Extend;
+use Flarum\User\Event\Saving;
 
 return [
     (new Extend\Frontend('forum'))
@@ -22,5 +23,6 @@ return [
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
 
-
+    (new Extend\Event())
+        ->listen(Saving::class, SaveIsswjtuerToDatabase::class)
 ];

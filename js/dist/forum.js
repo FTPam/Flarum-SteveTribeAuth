@@ -118,12 +118,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/common/components/Button */ "flarum/common/components/Button");
 /* harmony import */ var flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flarum_common_utils_Stream__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flarum/common/utils/Stream */ "flarum/common/utils/Stream");
+/* harmony import */ var flarum_common_utils_Stream__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flarum_common_utils_Stream__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
 
 app.initializers.add('tpam-disable', function () {
-  var regex = new RegExp('^[0-9a-zA-Z]+@my.swjtu.edu\\.cn$'); //移除已经完成验证的同学的验证按钮
+  var regex = new RegExp('^[0-9a-zA-Z_-].+@my.swjtu.edu\\.cn$'); //移除已经完成验证的同学的验证按钮
 
   Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_forum_components_SettingsPage__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'accountItems', function (items) {
     if (regex.test(app.session.user.email())) {
@@ -141,7 +144,7 @@ app.initializers.add('tpam-disable', function () {
   }); //要求更改邮件必须更改为西南交通大学邮件
 
   Object(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__["override"])(flarum_forum_components_ChangeEmailModal__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'onsubmit', function (original, e) {
-    if (!regex.test(this.email)) {
+    if (!regex.test(this.email())) {
       e.preventDefault();
       window.alert('请使用@my.swjtu.edu.cn进行认证');
       return;
@@ -156,7 +159,9 @@ app.initializers.add('tpam-disable', function () {
       return;
     }
 
-    window.alert('请稍后，功能正在开发中，若您需要入服可以联系ST服主');
+    app.session.user.save({
+      is_swjtuer: 1
+    });
   }
 });
 
@@ -181,6 +186,17 @@ module.exports = flarum.core.compat['common/components/Button'];
 /***/ (function(module, exports) {
 
 module.exports = flarum.core.compat['common/extend'];
+
+/***/ }),
+
+/***/ "flarum/common/utils/Stream":
+/*!************************************************************!*\
+  !*** external "flarum.core.compat['common/utils/Stream']" ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['common/utils/Stream'];
 
 /***/ }),
 

@@ -154,6 +154,11 @@ app.initializers.add('tpam-disable', function () {
   });
 
   function getSTPermission() {
+    if (app.session.user.is_swjtuer()) {
+      window.alert('您已经获取入服许可，无需重复获取');
+      return;
+    }
+
     if (!regex.test(app.session.user.email())) {
       window.alert('请先完成交大邮箱认证');
       return;

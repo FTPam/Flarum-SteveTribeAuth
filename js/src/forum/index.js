@@ -40,7 +40,7 @@ app.initializers.add('tpam-disable', () => {
       window.alert('请先完成交大邮箱认证');
       return;
     }
-    app.session.user.save({is_swjtuer: 1})
+    app.session.user.save({is_swjtuer: 1});
     window.alert('您已成功获取入服许可！');
   }
 })

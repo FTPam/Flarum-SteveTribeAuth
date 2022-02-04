@@ -4,6 +4,8 @@
 
 A [Flarum](http://flarum.org) extension. 
 
+本拓展用于禁用邮箱更改。
+
 ## Installation
 
 Install with composer:

@@ -4,7 +4,7 @@
 
 A [Flarum](http://flarum.org) extension. 
 
-本拓展用于禁用邮箱更改。
+本拓展用于进行交大邮箱认证。由于作者并无良好的JS、PHP基础，因此功能的实现方式可能比较愚蠢。  
 
 ## Installation
 
